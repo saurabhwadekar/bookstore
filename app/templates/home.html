@@ -8,5 +8,12 @@
 </head>
 <body>
     <h1>home page</h1>
+    <hr>
+    {% for i in data %}
+        <img src="media/{{i.cover}}" heigth=200 width=200 alt="">
+        <a href="media/{{i.book_pdf}}">Download PDF</a>
+        <p>{{i.title}}{{i.info}}{{i.cover}}{{i.book_pdf}}{{i.datetime}}</p>
+        <hr>
+    {% endfor %}
 </body>
 </html>
