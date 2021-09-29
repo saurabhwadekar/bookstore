@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 
 # Create your models here.
 
@@ -8,7 +9,7 @@ class Book(models.Model):
     title = models.CharField("Title",max_length=100)
     info = models.CharField("Info",max_length=500)
     cover = models.ImageField("Cover",upload_to = "cover")
-    book_pdf = models.FileField("Book_PDF",upload_to="book_pdf")
+    book_pdf = models.FileField("Book_PDF",upload_to="book_pdf",validators=[validators.FileExtensionValidator(["pdf"]),])
     datetime = models.DateTimeField("DateTime",auto_now_add=True)
 
 
