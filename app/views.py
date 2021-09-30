@@ -1,11 +1,14 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .models import Book
 from .forms import UserLoginForm,UserMakeForm,BookForm
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 
 def home(request):
+    if request.user.is_authenticated == False:
+        return HttpResponseRedirect("/login-aucount/")
     data = Book.objects.all()
     dict_data = {
         "data":data,
@@ -13,6 +16,8 @@ def home(request):
     return render(request,"home.html",dict_data)
 
 def add_book(request):
+    if request.user.is_authenticated == False:
+        return HttpResponseRedirect("/login-aucount/")
     bf = BookForm()
     if request.method == "POST":
         bf = BookForm(request.POST,request.FILES)
@@ -26,12 +31,16 @@ def add_book(request):
     return render(request,"add_book.html",dict_data)
 
 def delete_book(request,id):
+    if request.user.is_authenticated == False:
+        return HttpResponseRedirect("/login-aucount/")
     if request.method == "POST":
         del_obj = Book.objects.get(id=id)
         del_obj.delete()
     return HttpResponseRedirect("/")
 
 def update_book(request,id):
+    if request.user.is_authenticated == False:
+        return HttpResponseRedirect("/login-aucount/")
     ub_obj = Book.objects.get(id = id)
     ubf = BookForm(instance=ub_obj)
     if request.method == "POST":
@@ -46,6 +55,8 @@ def update_book(request,id):
     return render(request,"update_book.html",dict_data)
 
 def create_aucount(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("/")
     umf = UserMakeForm()
     if request.method == "POST":
         umf = UserMakeForm(request.POST)
@@ -58,8 +69,30 @@ def create_aucount(request):
     return render(request,"create_acount.html",dict_data)
 
 def login_aucount(request):
-    return HttpResponseRedirect("/")
+    if request.user.is_authenticated:
+        return HttpResponseRedirect("/")
+    ulf  = UserLoginForm()
+    if request.method == "POST":
+        ulf = UserLoginForm(request=request,data=request.POST)
+        if ulf.is_valid():
+            username = ulf.cleaned_data["username"]
+            password = ulf.cleaned_data["password"]
+            user = authenticate(username=username,password=password)
+            if user.is_authenticated:
+                login(request=request,user=user)
+                return HttpResponseRedirect("/")
+    dict_data = {
+        "ulf":ulf,
+    }
+    return render(request,"login_aucount.html",dict_data)
 
+def logout_aucount(request):
+    if request.user.is_authenticated == False:
+        return HttpResponseRedirect("/login-aucount/")
+    if request.method == "POST":
+        logout(request)
+        return HttpResponseRedirect("/login-aucount/")
+    return HttpResponseRedirect("/")
 
     
 

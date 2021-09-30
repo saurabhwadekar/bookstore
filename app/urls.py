@@ -8,5 +8,6 @@ urlpatterns = [
     path("update-book/<int:id>/",views.update_book,name="updatebook"),
     path("create-aucount/",views.create_aucount,name="createaucont"),
     path("login-aucount/",views.login_aucount,name="loginaucont"),
+    path("logout-aucount/",views.logout_aucount,name="logoutaucont"),
 
 ]

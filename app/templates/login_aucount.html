@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Aucount</title>
+    <title>Login Aucount</title>
 </head>
 <body>
-    <h1>Create Aucount</h1>
-    <form action="{% url 'createaucont' %}" method="post">
+    <h1>Login Aucount</h1>
+    <form action="{% url 'loginaucont' %}" method="post">
     {% csrf_token %}
-    {{umf}}
-    <button type="submit">Create</button>
+    {{ulf}}
+    <button type="submit">Login</button>
     </form>
-    <a href="{% url 'loginaucont' %}">Login Aucount</a>
+    <a href="{% url 'createaucont' %}">Create Aucont</a>
 </body>
 </html>

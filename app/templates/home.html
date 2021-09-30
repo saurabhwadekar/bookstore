@@ -9,6 +9,10 @@
 <body>
     <h1>home page</h1>
     <a href="{% url 'addbook' %}">Add Book</a>
+    <form action="{% url 'logoutaucont' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+    </form>
     <hr>
     {% for i in data %}
         <img src="media/{{i.cover}}" heigth=200 width=200 alt="">
