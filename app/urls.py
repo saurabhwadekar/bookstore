@@ -9,5 +9,5 @@ urlpatterns = [
     path("create-aucount/",views.create_aucount,name="createaucont"),
     path("login-aucount/",views.login_aucount,name="loginaucont"),
     path("logout-aucount/",views.logout_aucount,name="logoutaucont"),
-
+    path("media/cover/<str:file_name>/",views.sec_cover,name="seccover"),
 ]

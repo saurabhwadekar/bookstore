@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse,HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render,HttpResponse,HttpResponseRedirect
 from .models import Book
 from .forms import UserLoginForm,UserMakeForm,BookForm
 from django.contrib.auth import authenticate, login, logout
+from django.http import FileResponse
 
 # Create your views here.
 
@@ -94,6 +95,12 @@ def logout_aucount(request):
         return HttpResponseRedirect("/login-aucount/")
     return HttpResponseRedirect("/")
 
+def sec_cover(request,file_name):
+    if request.user.is_authenticated:
+        print(file_name)
+        file_obj = get_object_or_404(Book,cover="cover/"+file_name)
+        return FileResponse(file_obj.cover)
+    return HttpResponseRedirect("/")
     
 
 
