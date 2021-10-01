@@ -97,12 +97,15 @@ def logout_aucount(request):
 
 def sec_cover(request,file_name):
     if request.user.is_authenticated:
-        print(file_name)
         file_obj = get_object_or_404(Book,cover="cover/"+file_name)
         return FileResponse(file_obj.cover)
     return HttpResponseRedirect("/")
     
-
+def sec_book_pdf(request,file_name):
+    if request.user.is_authenticated:
+        file_obj = get_object_or_404(Book,book_pdf="book_pdf"+file_name)
+        return FileResponse(file_obj.book_pdf)
+    return HttpResponseRedirect("/")
 
 
 
